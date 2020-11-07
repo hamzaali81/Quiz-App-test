@@ -1,5 +1,5 @@
 import { log } from 'console';
-import React from 'react';
+import React,{useState} from 'react';
 import { QuestionType, Quiz, questionPropsType } from './../Types/quiz_types';
 
 
@@ -8,7 +8,13 @@ const QuestionCard: React.FC<any> = ({
     options,
     callback 
 }) => {
-    console.log(question, options);
+    let [selectedAns, setSelectedAns] = useState("");
+    const handleSelection=(ev:any)=>{
+          console.log(ev.target.value);
+          setSelectedAns(ev.target.value)
+    }
+
+    // console.log(question, options);
 
     return (
         <div className="question-container">
@@ -17,19 +23,19 @@ const QuestionCard: React.FC<any> = ({
                 {question}
             </div>
 
-            <form onSubmit={callback}>
+            <form onSubmit={(e:React.FormEvent<EventTarget>)=>callback(e,selectedAns)}>
                 {options.map((opt: string, ind: number) => {
                     return <div key={ind}>
 
                         <label>
-                            <input type="radio" name="opt" value={opt} />
+                            <input type="radio" name="opt" value={opt} onChange={handleSelection} required checked={selectedAns === opt}/>
                             {opt}
 
                         </label>
                     </div>
 
                 })}
-                <input type="submit" />
+                <input type="submit"/>
             </form>
         </div>
     )

@@ -1,6 +1,5 @@
 import React from 'react';
 export type Quiz = {
-
     category: string
     correct_answer: string
     difficulty: string
@@ -18,5 +17,5 @@ export type QuestionType={
 export type questionPropsType = {
     question: string
     options: string[],
-    callback: (e:React.FormEvent<EventTarget>)=>void
+    callback: (e:React.FormEvent<EventTarget>, ans:string)=>void
 }
